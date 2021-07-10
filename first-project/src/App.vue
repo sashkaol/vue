@@ -1,63 +1,66 @@
 <template>
   <div id="app">
-    <List :items="List" />
-    <button class="pineButton" @click="clicked">Добавить расходы&ensp;➕</button>
-    <Form v-show="show" @addNewPay="addNewPay" />
+    <h1>Мои расходы</h1>
+    <button class="pineButton" 
+            @click="clicked">
+            Добавить расходы&ensp;➕
+    </button>
+    <Form v-show="show" 
+          @addNewPay="addNewPay" 
+    />
+    <List :items="getList" />
+    Итого: {{ getFLV }}
+    <Pagination @goToPage="goToPage" />
   </div>
 </template>
 
 <script>
 import List from './components/List.vue';
 import Form from './components/Form.vue';
+import Pagination from './components/Pagination.vue'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'App',
   components: {
     Form,
-    List
+    List,
+    Pagination
   },
   data() {
     return {
-      List: [],
       show: false
     }
   },
   methods: {
-    fetchData() {
-      return [
-        {
-          date: '12.11.2021',
-          category: 'Food',
-          cost: 200 
-        },
-        {
-          date: '12.11.2021',
-          category: 'Food',
-          cost: 200 
-        },
-        {
-          date: '12.11.2021',
-          category: 'Food',
-          cost: 200 
-        },
-        {
-          date: '12.11.2021',
-          category: 'Food',
-          cost: 200 
-        }
-      ]
-    },
+    ...mapMutations([
+      'setList',
+      'addList'
+    ]),
+    ...mapActions([
+      'fetchData'
+    ]),
     addNewPay(data) {
-      console.log(data);
-      this.List = [...this.List, data]
+      this.addList(data)
     },
     clicked() {
       this.show = !this.show;
+    },
+    goToPage(ind) {
+      this.fetchData(ind)
     }
   },
   created() {
-    return this.List = this.fetchData();
-  } 
+    this.fetchData(1)
+  },
+  computed: {
+    ...mapGetters({
+      getList: 'getList'
+    }),
+    getFLV() {
+      return this.$store.getters.getFullListValue
+    },
+  }
 }
 </script>
 
@@ -68,5 +71,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   margin-top: 60px;
+  margin-left: 30px;
 }
 </style>

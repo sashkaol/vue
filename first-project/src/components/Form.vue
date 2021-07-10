@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="form">
-      <input class="inp" v-model="date" placeholder="Дата" />
-      <input class="inp" v-model="category" placeholder="Категория" />
-      <input class="inp" v-model.number="cost" placeholder="Расходы" />
-      <button class="pineButton" style="width: 75px" @click="add">
+      <input @keyup="check" class="inp" v-model="date" placeholder="Дата" />
+      <input @keyup="check" class="inp" v-model="category" placeholder="Категория" />
+      <input @keyup="check" class="inp" type="number" v-model.number="cost" placeholder="Расходы" />
+      <button :disabled="checkBtn" id="add" class="pineButton add" @click="add">
         Добавить
       </button>
     </div>
@@ -18,6 +18,7 @@ export default {
       date: "",
       category: "",
       cost: "",
+      checkBtn: true
     };
   },
   methods: {
@@ -35,7 +36,14 @@ export default {
         cost: this.cost,
       };
       this.$emit("addNewPay", data);
+      this.date = ''; this.category = ''; this.cost = '';
+      this.check();
     },
+    check() {
+      if ((this.category == '') || (this.cost == '')) {
+        this.checkBtn = true
+      } else this.checkBtn = false
+    }
   },
 };
 </script>
@@ -50,13 +58,26 @@ export default {
   box-shadow: 1px 1px 5px 1px #25a79a64;
   color: ghostwhite;
   transition: cubic-bezier(0.215, 0.61, 0.355, 1) 0.7s;
-  margin-bottom: 10px;
-  margin-top: 5px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  outline: none;
+}
+.pineButton:disabled {
+  background-color: #8e9696;
+  box-shadow: none;
+}
+.pineButton:disabled:hover {
+  background-color: #8e9696;
+  box-shadow: none;
 }
 .pineButton:hover {
   transition: cubic-bezier(0.215, 0.61, 0.355, 1) 0.7s;
-  box-shadow: 1px 1px 5px 1px #25a79a;
+  box-shadow: 0px 0px 5px 1px #25a79a;
 }
+.inp::-webkit-inner-spin-button,
+.inp::-webkit-outer-spin-button{
+  appearance: none;
+} 
 .form {
   display: flex;
   flex-direction: column;
@@ -65,5 +86,9 @@ export default {
 }
 .inp {
   outline: none;
+}
+.add {
+  margin-top: 5px;
+  width: 75px;
 }
 </style>
