@@ -1,67 +1,69 @@
 <template>
   <div id="app">
     <h1>Мои расходы</h1>
-    <button class="pineButton" 
-            @click="clicked">
-            Добавить расходы&ensp;➕
+    <button class="pineButton" @click="clicked()">
+      Добавить расходы&ensp;➕
     </button>
-    <Form v-show="show" 
-          @addNewPay="addNewPay" 
-    />
-    <List :items="getList" />
+    <Form v-show="show" @addNewPay="addNewPay" />
+    <List :items="createPages(curPage)" />
     Итого: {{ getFLV }}
-    <Pagination @goToPage="goToPage" />
+    <Pagination :pagesCount="parseFloat(getL / n)" @goToPage="goToPage" />
   </div>
 </template>
 
 <script>
-import List from './components/List.vue';
-import Form from './components/Form.vue';
-import Pagination from './components/Pagination.vue'
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import List from "./components/List.vue";
+import Form from "./components/Form.vue";
+import Pagination from "./components/Pagination.vue";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Form,
     List,
-    Pagination
+    Pagination,
   },
   data() {
     return {
-      show: false
-    }
+      show: false,
+      curPage: 1,
+      n: 5,
+    };
   },
   methods: {
-    ...mapMutations([
-      'setList',
-      'addList'
-    ]),
-    ...mapActions([
-      'fetchData'
-    ]),
+    ...mapMutations(["setList", "addList"]),
+    ...mapActions(["fetchData"]),
     addNewPay(data) {
-      this.addList(data)
+      this.addList(data);
     },
     clicked() {
       this.show = !this.show;
     },
     goToPage(ind) {
-      this.fetchData(ind)
-    }
+      this.curPage = ind;
+      console.log(ind);
+      console.log(this.curPage);
+    },
+    createPages(page) {
+      return this.getList.slice(this.n * (page - 1), this.n * (page - 1) + this.n)
+    },
   },
   created() {
-    this.fetchData(1)
+    this.fetchData();
   },
   computed: {
     ...mapGetters({
-      getList: 'getList'
+      getList: "getList",
     }),
     getFLV() {
-      return this.$store.getters.getFullListValue
+      return this.$store.getters.getFullListValue;
     },
-  }
-}
+    getL() {
+      return this.$store.getters.getLength
+    },
+  },
+};
 </script>
 
 <style lang="scss">

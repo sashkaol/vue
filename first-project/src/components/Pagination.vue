@@ -15,14 +15,37 @@
 <script>
 export default {
   name: "Pagination",
+  props: ["pagesCount"],
   data() {
     return {
-      pages: [1, 2, 3, 4, 5],
+      pages: [],
     };
   },
   methods: {
     portal(ind) {
       this.$emit("goToPage", ind);
+    },
+    push() {
+      for (let i = 1; i <= this.count; i++) {
+        this.pages.push(i);
+      }
+    },
+  },
+  created() {
+    setTimeout(() => {
+      if (this.create) {
+        this.push();
+      }
+    }, 100);
+  },
+  computed: {
+    create() {
+      if (this.pagesCount !== 0) {
+        return true;
+      } else return false;
+    },
+    count() {
+      return this.pagesCount;
     },
   },
 };
