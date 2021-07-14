@@ -3,7 +3,8 @@
     <button
       :ref="ind"
       class="page"
-      @click="portal(ind + 1)"
+      v-bind:class="{ active: isActive === ind+1 }"
+      @click="portal(ind + 1), select(ind + 1)"
       v-for="(page, ind) in render"
       :key="ind"
     >
@@ -19,14 +20,18 @@ export default {
   data() {
     return {
       pages: [],
+      isActive: 1
     };
   },
   methods: {
+    select(ind) {
+        this.isActive = ind
+    },
     portal(ind) {
       this.$emit("goToPage", ind);
     },
     push() {
-      this.pages = []
+      this.pages = [];
       for (let i = 1; i <= this.count; i++) {
         this.pages.push(i);
       }
@@ -49,9 +54,9 @@ export default {
       return this.pagesCount;
     },
     render() {
-        this.push()
-        return this.pages
-    }
+      this.push();
+      return this.pages;
+    },
   },
 };
 </script>
