@@ -5,7 +5,7 @@
       <input @keyup="check" class="inp" v-model="date" placeholder="Дата" />
       <input @keyup="check" class="inp" v-model="category" placeholder="Категория" />
       <input @keyup="check" class="inp" type="number" v-model.number="cost" placeholder="Расходы" />
-      <button :disabled="checkBtn" id="add" class="pineButton add" @click="add">
+      <button :disabled="checkBtn" id="add" class="pineButton add" @click="add(), idP()">
         Добавить
       </button>
     </div>
@@ -25,6 +25,9 @@ export default {
     };
   },
   methods: {
+    idP() {
+      this.id++
+    },
     currentDate() {
       this.date = new Date();
       let d = this.date.getDate();
