@@ -3,8 +3,8 @@
     <button
       :ref="ind"
       class="page"
-      @click="portal(ind + 1), push()"
-      v-for="(page, ind) in pages"
+      @click="portal(ind + 1)"
+      v-for="(page, ind) in render"
       :key="ind"
     >
       {{ page }}
@@ -32,9 +32,6 @@ export default {
       }
     },
   },
-  beforeUpdate() {
-      this.push()
-  },
   created() {
     setTimeout(() => {
       if (this.create) {
@@ -51,6 +48,10 @@ export default {
     count() {
       return this.pagesCount;
     },
+    render() {
+        this.push()
+        return this.pages
+    }
   },
 };
 </script>
