@@ -7,7 +7,7 @@
     <Form v-show="show" @addNewPay="addNewPay" />
     <List :items="createPages(curPage)" />
     Итого: {{ getFLV }}
-    <Pagination :pagesCount="parseFloat(getL / n)" @goToPage="goToPage" />
+    <Pagination :pagesCount="Math.ceil(getL / n)" @goToPage="goToPage" />
   </div>
 </template>
 
@@ -42,8 +42,6 @@ export default {
     },
     goToPage(ind) {
       this.curPage = ind;
-      console.log(ind);
-      console.log(this.curPage);
     },
     createPages(page) {
       return this.getList.slice(this.n * (page - 1), this.n * (page - 1) + this.n)

@@ -3,7 +3,7 @@
     <button
       :ref="ind"
       class="page"
-      @click="portal(ind + 1)"
+      @click="portal(ind + 1), push()"
       v-for="(page, ind) in pages"
       :key="ind"
     >
@@ -26,10 +26,14 @@ export default {
       this.$emit("goToPage", ind);
     },
     push() {
+      this.pages = []
       for (let i = 1; i <= this.count; i++) {
         this.pages.push(i);
       }
     },
+  },
+  beforeUpdate() {
+      this.push()
   },
   created() {
     setTimeout(() => {
