@@ -7,7 +7,7 @@
         <div class="item">Цена</div>
     </div>
     <div class="expense" v-for="(item, ind) in items" :key="ind">
-      <div class="item first">{{ item.id }}</div>
+      <div class="item first">{{ item.id || ind }}</div>
       <div class="item">{{ item.date }}</div>
       <div class="item">{{ item.category }}</div>
       <div class="item">{{ item.cost }}</div>
