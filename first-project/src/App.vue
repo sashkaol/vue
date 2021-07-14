@@ -17,7 +17,6 @@
       </button>
       <Form v-show="show" 
             @addNewPay="addNewPay"
-            :max-id="getL" 
       />
       <List :items="createPages(curPage)" />
       Итого: {{ getFLV }}

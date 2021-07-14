@@ -14,7 +14,6 @@
 
 <script>
 export default {
-  props: ['max-id'],
   data() {
     return {
       id: 50,
