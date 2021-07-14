@@ -69,9 +69,6 @@ export default {
       );
     },
   },
-  // mounted() {
-  //   this.
-  // },
   created() {
     this.fetchData();
   },
