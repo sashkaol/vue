@@ -66,8 +66,10 @@ export default {
   background-color: white;
   outline: none;
   border: none;
-  width: 20px;
-  height: 25px;
+  width: 25px;
+  height: 30px;
+  padding: 3px;
+  box-sizing: border-box;
 }
 .page:hover {
   background-color: #25a79a;

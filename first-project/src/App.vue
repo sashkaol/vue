@@ -15,10 +15,15 @@
       <button class="pineButton" @click="clicked()">
         Добавить расходы&ensp;➕
       </button>
-      <Form v-show="show" @addNewPay="addNewPay" />
+      <Form v-show="show" 
+            @addNewPay="addNewPay"
+            :max-id="getL" 
+      />
       <List :items="createPages(curPage)" />
       Итого: {{ getFLV }}
-      <Pagination :pagesCount="Math.ceil(getL / n)" @goToPage="goToPage" />
+      <Pagination :pagesCount="Math.ceil(getL / n)" 
+                  @goToPage="goToPage" 
+      />
     </main>
   </div>
 </template>

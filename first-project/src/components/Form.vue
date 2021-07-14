@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="form">
+      <input class="inp" v-model="newId" readonly />
       <input @keyup="check" class="inp" v-model="date" placeholder="Дата" />
       <input @keyup="check" class="inp" v-model="category" placeholder="Категория" />
       <input @keyup="check" class="inp" type="number" v-model.number="cost" placeholder="Расходы" />
@@ -13,8 +14,10 @@
 
 <script>
 export default {
+  props: ['max-id'],
   data() {
     return {
+      id: 50,
       date: "",
       category: "",
       cost: "",
@@ -31,6 +34,7 @@ export default {
     },
     add() {
       const data = {
+        id: this.newId,
         date: this.date || this.currentDate(),
         category: this.category,
         cost: this.cost,
@@ -45,6 +49,11 @@ export default {
       } else this.checkBtn = false
     }
   },
+  computed: {
+    newId() {
+      return 1 + this.id
+    }
+  }
 };
 </script>
 

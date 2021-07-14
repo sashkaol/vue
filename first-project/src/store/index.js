@@ -22,10 +22,10 @@ export default new Vuex.Store({
                     const items = []
                     for(let i = 1; i <= 50; i++){
                         items.push({
+                            id: i,
                             date: "23.12.2020",
                             category: "Sport",
                             cost: i,
-                            id: i
                         })
                     }
                     resolve(items)
