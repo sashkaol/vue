@@ -70,6 +70,9 @@ export default {
       if (this.checkData) {
         this.category = this.newData.category
         this.cost = this.newData.cost
+      } else {
+        this.category = ''
+        this.cost = ''
       }
     },
     check() {

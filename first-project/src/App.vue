@@ -53,6 +53,7 @@ export default {
     ...mapActions(["fetchData"]),
     addNewPay(data) {
       this.addList(data);
+      this.$router.push({name: 'dashboard'})
     },
     clicked() {
       this.show = !this.show;

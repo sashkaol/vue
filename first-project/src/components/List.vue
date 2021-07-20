@@ -5,12 +5,14 @@
         <div class="item">Дата</div>
         <div class="item">Категория</div>
         <div class="item">Цена</div>
+        <div class="item last"></div>
     </div>
     <div class="expense" v-for="(item, ind) in items" :key="ind">
       <div class="item first">{{ item.id || ind + 1 }}</div>
       <div class="item">{{ item.date }}</div>
       <div class="item">{{ item.category }}</div>
       <div class="item">{{ item.cost }}</div>
+      <div class="item last"><img class="points" src="../assets/points.svg" alt=""></div>
     </div>
   </div>
 </template>
@@ -46,5 +48,14 @@ export default {
 }
 .first {
     width: 50px;
+}
+.points {
+  width: 27px;
+}
+.points:hover {
+  cursor: pointer;
+}
+.last {
+  width: 50px;
 }
 </style>
