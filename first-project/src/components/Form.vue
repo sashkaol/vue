@@ -6,14 +6,14 @@
       <input
         @keyup="check"
         class="inp"
-        v-model="readyCat"
+        v-model="category"
         placeholder="Категория"
       />
       <input
         @keyup="check"
         class="inp"
         type="number"
-        v-model.number="readyCost"
+        v-model.number="cost"
         placeholder="Расходы"
       />
       <button
@@ -30,9 +30,7 @@
 
 <script>
 export default {
-  props: {
-    data: Object,
-  },
+  props: ['data'],
   data() {
     return {
       id: 50,
@@ -57,22 +55,21 @@ export default {
       const data = {
         id: this.newId,
         date: this.date || this.currentDate(),
-        category: this.category,
-        cost: this.cost,
+        category: this.category || this.readyCat(),
+        cost: this.cost || this.readyCost(),
       };
       this.$emit("addNewPay", data);
       this.date = "";
       this.category = "";
       this.cost = "";
       this.check();
+      this.data.cost = ''
+      this.data.category = ''
     },
     addNewData() {
       if (this.checkData) {
         this.category = this.newData.category
         this.cost = this.newData.cost
-      } else {
-        this.category = ''
-        this.cost = ''
       }
     },
     check() {
@@ -89,7 +86,7 @@ export default {
       return this.data;
     },
     checkData() {
-      if (this.newData !== 0) {
+      if ((Object.keys(this.newData).length !== 0) && ((this.data.category !== '') && (this.data.cost !== ''))) {
         return true
       } else return false;
     },
@@ -103,7 +100,7 @@ export default {
       this.check()
       return this.cost
     }
-  }, 
+  },
 };
 </script>
 
