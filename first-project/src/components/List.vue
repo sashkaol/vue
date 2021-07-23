@@ -49,7 +49,7 @@ export default {
         {
           text: "Удалить",
           action: () => {
-            this.actionDelete(item.id);
+            this.actionDelete(item);
           },
         },
       ];
@@ -58,9 +58,14 @@ export default {
     actionEdit(item) {
       console.log(`Запись ${item} будет отредактирована`);
     },
-    actionDelete(id) {
-      console.log(`Запись ${id} удалена`);
-      this.$context.close();
+    actionDelete(item) {
+      let i = this.$store.state.List.indexOf(item);
+      if (i > -1) {
+        console.log(i);
+        this.$store.mutations.deleteElement(i);
+        console.log(`Запись ${item} удалена`);
+        this.$context.close();
+      }
     },
   },
 };

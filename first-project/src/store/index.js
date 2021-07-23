@@ -13,6 +13,9 @@ export default new Vuex.Store({
         },
         addList(state, pay) {
             state.List.push(pay)
+        },
+        deleteElement(state, pay) {
+            state.List.slice(pay, pay+1)
         }
     },
     actions: {
