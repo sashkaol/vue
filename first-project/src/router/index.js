@@ -4,12 +4,18 @@ import Router from 'vue-router';
 import Dashboard from '../views/DashBoard.vue';
 import About from '../views/About.vue';
 import NotFound from '../views/NotFound.vue';
+import App from '../../src/App_.vue'
 
 Vue.use(Router);
 
 export default new Router({
     mode: 'history',
     routes: [
+        {
+            path: '/',
+            component: App,
+            name: 'app'
+        },
         {
             path: '/dashboard',
             component: Dashboard,

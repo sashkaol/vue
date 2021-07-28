@@ -1,6 +1,29 @@
 <template>
   <div class="expenses">
-    <div class="expense b">
+    <v-container>
+      <v-row>
+        <v-col :cols="1">#</v-col>
+        <v-col :cols="3">Date</v-col>
+        <v-col :cols="4">Category</v-col>
+        <v-col :cols="2">Cost</v-col>
+        <v-col :cols="2">Menu</v-col>
+      </v-row>
+      <v-row v-for="(item, ind) in items" :key="ind">
+        <v-col :cols="1">{{ item.id || ind + 1 }}</v-col>
+        <v-col :cols="3">{{ item.date }}</v-col>
+        <v-col :cols="4">{{ item.category }}</v-col>
+        <v-col :cols="2">{{ item.cost }}</v-col>
+        <v-col :cols="2">
+          <img
+            class="points"
+            src="../assets/points.svg"
+            alt="menu"
+            @click="contextMenu(item, $event)"
+          />
+        </v-col>
+      </v-row>
+    </v-container>
+    <!-- <div class="expense b">
       <div class="item first">#</div>
       <div class="item">Дата</div>
       <div class="item">Категория</div>
@@ -20,7 +43,7 @@
           @click="contextMenu(item, $event)"
         />
       </div>
-    </div>
+    </div> -->
     <ContextMenu />
   </div>
 </template>

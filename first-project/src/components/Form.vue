@@ -1,36 +1,45 @@
 <template>
   <div>
-    <div class="form">
-      <input class="inp" v-model="newId" readonly />
-      <input @keyup="check" class="inp" v-model="date" placeholder="Дата" />
-      <input
+    <v-card class="px-4 py-4 form">
+      <v-text-field label="Id" solo class="inp" v-model="newId" readonly />
+      <v-text-field label="Date" solo @keyup="check" class="inp" v-model="date" placeholder="12.10.2020" />
+      <v-text-field label="Category" solo
         @keyup="check"
         class="inp"
         v-model="category"
-        placeholder="Категория"
+        placeholder="Clothes"
       />
-      <input
+      <v-text-field solo
+        label="Cost"
         @keyup="check"
         class="inp"
         type="number"
         v-model.number="cost"
-        placeholder="Расходы"
+        placeholder="1900"
       />
-      <button
+      <v-btn
+        color="teal"
+        dark
+        :disabled="checkBtn"
+        id="add"
+        @click="add(), idP()"
+        >Add</v-btn
+      >
+      <!-- <button
         :disabled="checkBtn"
         id="add"
         class="pineButton addBtn"
         @click="add(), idP()"
       >
         Добавить
-      </button>
-    </div>
+      </button> -->
+    </v-card>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['data'],
+  props: ["data"],
   data() {
     return {
       id: 50,
@@ -63,13 +72,13 @@ export default {
       this.category = "";
       this.cost = "";
       this.check();
-      this.data.cost = ''
-      this.data.category = ''
+      this.data.cost = "";
+      this.data.category = "";
     },
     addNewData() {
       if (this.checkData) {
-        this.category = this.newData.category
-        this.cost = this.newData.cost
+        this.category = this.newData.category;
+        this.cost = this.newData.cost;
       }
     },
     check() {
@@ -86,20 +95,24 @@ export default {
       return this.data;
     },
     checkData() {
-      if ((Object.keys(this.newData).length !== 0) && ((this.data.category !== '') && (this.data.cost !== ''))) {
-        return true
+      if (
+        Object.keys(this.newData).length !== 0 &&
+        this.data.category !== "" &&
+        this.data.cost !== ""
+      ) {
+        return true;
       } else return false;
     },
     readyCat() {
-      this.addNewData()
-      this.check()
-      return this.category
+      this.addNewData();
+      this.check();
+      return this.category;
     },
     readyCost() {
-      this.addNewData()
-      this.check()
-      return this.cost
-    }
+      this.addNewData();
+      this.check();
+      return this.cost;
+    },
   },
 };
 </script>
@@ -140,7 +153,6 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 5px;
-  width: 300px;
 }
 .inp {
   outline: none;
