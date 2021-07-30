@@ -12,22 +12,6 @@
           <div class="content">
             <router-view />
           </div>
-          <!-- <div class="add">
-            <button class="pineButton addList" @click="add('Food')">
-              Добавить Еду за 200
-            </button>
-            <button class="pineButton addList" @click="add('Clothes')">
-              Добавить Одежду за 1000
-            </button>
-            <button class="pineButton addList" @click="add('Education')">
-              Добавить Образование за 8000
-            </button>
-          </div> -->
-          <!-- <v-btn color="teal" dark @click="show = !show">ADD NEW COST <v-icon>mdi-plus</v-icon></v-btn>
-      <br /> -->
-          <!-- <button class="pineButton" @click="clicked()">
-        Добавить расходы&ensp;➕
-      </button> -->
           <v-dialog v-model="show" width="300">
             <template v-slot:activator="{ on }">
               <v-btn color="teal" dark v-on="on"
