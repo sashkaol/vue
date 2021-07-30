@@ -1,6 +1,6 @@
 <template>
   <div class="expenses">
-    <v-container>
+    <!-- <v-container>
       <v-row>
         <v-col :cols="1">#</v-col>
         <v-col :cols="3">Date</v-col>
@@ -22,7 +22,48 @@
           />
         </v-col>
       </v-row>
-    </v-container>
+    </v-container> -->
+    <v-simple-table>
+      <template v-slot:default>
+        <thead>
+          <tr>
+            <th class="text-left">#</th>
+            <th class="text-left">Date</th>
+            <th class="text-left">Category</th>
+            <th class="text-left">Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in items" :key="item.id">
+            <td>{{ item.id }}</td>
+            <td>{{ item.date }}</td>
+            <td>{{ item.category }}</td>
+            <td>{{ item.cost }}</td>
+            <td>
+              <!-- <img
+                class="points"
+                src="../assets/points.svg"
+                alt="menu"
+                @click="contextMenu(item, $event)"
+              /> -->
+              <v-menu max-width="150px" top right>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn dark icon v-bind="attrs" v-on="on">
+                    <v-icon>mdi-dots-vertical</v-icon>
+                  </v-btn>
+                </template>
+
+                <v-list rounded=true>
+                  <v-list-item v-for="(item, i) in actions" :key="i" link>
+                    <v-list-item-title>{{ item }}</v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+            </td>
+          </tr>
+        </tbody>
+      </template>
+    </v-simple-table>
     <!-- <div class="expense b">
       <div class="item first">#</div>
       <div class="item">Дата</div>
@@ -56,6 +97,11 @@ export default {
       type: Array,
       default: () => [],
     },
+  },
+  data() {
+    return {
+      actions: ['Редактировать', 'Удалить']
+    }
   },
   components: {
     ContextMenu,

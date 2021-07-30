@@ -3,11 +3,11 @@
     <v-row>
       <v-col>
         <div class="text-h5 text-md-h3 mb-8">My personal cost</div>
-        <div class="menu">
+        <!-- <div class="menu">
           <router-link to="/dashboard">Dashboard</router-link> /
           <router-link to="/about">About</router-link> /
           <router-link to="/notfound">Not Found</router-link>
-        </div>
+        </div> -->
         <main>
           <div class="content">
             <router-view />
@@ -26,7 +26,8 @@
           <!-- <Form v-show="show" @addNewPay="addNewPay" :data="getReadyData" /> -->
           <List :items="createPages(curPage)" />
           Итого: {{ getFLV }}
-          <Pagination :pagesCount="Math.ceil(getL / n)" @goToPage="goToPage" />
+          <!-- <Pagination :pagesCount="Math.ceil(getL / n)" @goToPage="goToPage" /> -->
+          <v-pagination color="teal" v-model="curPage" :length="Math.ceil(getL / n)"></v-pagination>
         </main>
       </v-col>
       <v-col> chart </v-col>
@@ -37,7 +38,7 @@
 <script>
 import List from "./components/List.vue";
 import Form from "./components/Form.vue";
-import Pagination from "./components/Pagination.vue";
+// import Pagination from "./components/Pagination.vue";
 import { mapActions, mapGetters, mapMutations } from "vuex";
 
 export default {
@@ -45,7 +46,6 @@ export default {
   components: {
     Form,
     List,
-    Pagination,
   },
   data() {
     return {
