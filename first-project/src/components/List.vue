@@ -46,16 +46,15 @@
                 alt="menu"
                 @click="contextMenu(item, $event)"
               /> -->
-              <v-menu max-width="150px" top right>
+              <v-menu max-width="200px" top right>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn dark icon v-bind="attrs" v-on="on">
                     <v-icon>mdi-dots-vertical</v-icon>
                   </v-btn>
                 </template>
-
-                <v-list rounded=true>
+                <v-list rounded>
                   <v-list-item v-for="(item, i) in actions" :key="i" link>
-                    <v-list-item-title>{{ item }}</v-list-item-title>
+                    <v-list-item-title>{{ item.title }}</v-list-item-title>
                   </v-list-item>
                 </v-list>
               </v-menu>
@@ -100,8 +99,21 @@ export default {
   },
   data() {
     return {
-      actions: ['Редактировать', 'Удалить']
-    }
+      actions: [
+        {
+          title: "Редактировать",
+          action: () => {
+            this.actionEdit();
+          },
+        },
+        {
+          title: "Удалить",
+          action: () => {
+            this.actionDelete()
+          },
+        },
+      ],
+    };
   },
   components: {
     ContextMenu,

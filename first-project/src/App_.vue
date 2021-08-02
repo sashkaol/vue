@@ -20,17 +20,24 @@
               <br />
             </template>
             <v-card>
-                <Form @addNewPay="addNewPay" :data="getReadyData" />
+              <Form @addNewPay="addNewPay" :data="getReadyData" />
             </v-card>
           </v-dialog>
           <!-- <Form v-show="show" @addNewPay="addNewPay" :data="getReadyData" /> -->
           <List :items="createPages(curPage)" />
           Итого: {{ getFLV }}
           <!-- <Pagination :pagesCount="Math.ceil(getL / n)" @goToPage="goToPage" /> -->
-          <v-pagination color="teal" v-model="curPage" :length="Math.ceil(getL / n)"></v-pagination>
+          <v-pagination
+            color="teal"
+            v-model="curPage"
+            :length="Math.ceil(getL / n)"
+          ></v-pagination>
+          <!-- <button @click="analysisData">fffff</button> -->
         </main>
       </v-col>
-      <v-col> chart </v-col>
+      <v-col>
+        <BarChart :chartData="analysisData" />
+      </v-col>
     </v-row>
   </div>
 </template>
@@ -40,12 +47,14 @@ import List from "./components/List.vue";
 import Form from "./components/Form.vue";
 // import Pagination from "./components/Pagination.vue";
 import { mapActions, mapGetters, mapMutations } from "vuex";
+import BarChart from "./components/BarChart.vue";
 
 export default {
   name: "App",
   components: {
     Form,
     List,
+    BarChart,
   },
   data() {
     return {
@@ -113,6 +122,43 @@ export default {
     },
     getReadyData() {
       return this.data;
+    },
+    analysisData() {
+      let cat = [];
+      let all = [];
+      let costs = [];
+      let colors = [];
+      for (let i = 0; i < this.getL; i++) {
+        if (cat.indexOf(this.getList[i].category) == -1) {
+          let color = "#" + Math.floor(Math.random() * (256)).toString(16) + Math.floor(Math.random() * (256)).toString(16) + Math.floor(Math.random() * (256)).toString(16);
+          cat.push(this.getList[i].category);
+          all.push({
+            category: this.getList[i].category,
+            cost: this.getList[i].cost,
+            color: color,
+          });
+        } else {
+          all.forEach((el) => {
+            if (cat.indexOf(el.category) !== -1) {
+              el.cost += this.getList[i].cost;
+            }
+          });
+        }
+      }
+      all.forEach((el) => {
+        costs.push(el.cost);
+        colors.push(el.color);
+      });
+      return {
+        labels: cat,
+        datasets: [
+          {
+            label: "Категории",
+            backgroundColor: colors,
+            data: costs,
+          },
+        ],
+      };
     },
   },
 };

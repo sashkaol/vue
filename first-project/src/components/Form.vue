@@ -2,14 +2,31 @@
   <div>
     <v-card class="px-4 py-4 form">
       <v-text-field label="Id" solo class="inp" v-model="newId" readonly />
-      <v-text-field label="Date" solo @keyup="check" class="inp" v-model="date" placeholder="12.10.2020" />
-      <v-text-field label="Category" solo
+      <v-text-field
+        label="Date"
+        solo
+        @keyup="check"
+        class="inp"
+        v-model="date"
+        placeholder="12.10.2020"
+      />
+      <!-- <v-text-field
+        label="Category"
+        solo
         @keyup="check"
         class="inp"
         v-model="category"
         placeholder="Clothes"
-      />
-      <v-text-field solo
+      /> -->
+      <v-combobox
+        clearable
+        solo
+        :items="categories"
+        v-model="select"
+        label="Category"
+      ></v-combobox>
+      <v-text-field
+        solo
         label="Cost"
         @keyup="check"
         class="inp"
@@ -47,6 +64,8 @@ export default {
       category: "",
       cost: "",
       checkBtn: true,
+      categories: ["Clothes", "Food", "Sport", "Education", "Other"],
+      select: "",
     };
   },
   methods: {
@@ -64,12 +83,12 @@ export default {
       const data = {
         id: this.newId,
         date: this.date || this.currentDate(),
-        category: this.category || this.readyCat(),
+        category: this.select || this.readyCat(),
         cost: this.cost || this.readyCost(),
       };
       this.$emit("addNewPay", data);
       this.date = "";
-      this.category = "";
+      this.select = "";
       this.cost = "";
       this.check();
       this.data.cost = "";
@@ -82,7 +101,7 @@ export default {
       }
     },
     check() {
-      if (this.category == "" || this.cost == "") {
+      if (this.select == "" || this.cost == "") {
         this.checkBtn = true;
       } else this.checkBtn = false;
     },
